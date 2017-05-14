@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1E44F998-84BB-4DBB-A038-C0223EC6502D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Siderite</RootNamespace>
+    <AssemblyName>RegexConverter</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\CharType.cs" />
+    <Compile Include="Code\Errors\DoubleEscapeException.cs" />
+    <Compile Include="Code\Errors\EndCannotHaveQuantifierException.cs" />
+    <Compile Include="Code\Errors\InvalidSettingException.cs" />
+    <Compile Include="Code\Errors\MalformedLookAroundAttributeException.cs" />
+    <Compile Include="Code\Errors\MalformedNamedBackreference.cs" />
+    <Compile Include="Code\Errors\MalformedNamedCharacterClassException.cs" />
+    <Compile Include="Code\Errors\MalformedOptionsException.cs" />
+    <Compile Include="Code\Errors\ParseException.cs" />
+    <Compile Include="Code\Errors\EmptyCharacterClassException.cs" />
+    <Compile Include="Code\Errors\UnexpectedEndOfPatternException.cs" />
+    <Compile Include="Code\Errors\UnexpectedGroupEndException.cs" />
+    <Compile Include="Code\Errors\IncompleteNonExpressionCannotHaveQuantifierException.cs" />
+    <Compile Include="Code\Errors\InvalidElementNameException.cs" />
+    <Compile Include="Code\Errors\InvalidNumericQuantifierException.cs" />
+    <Compile Include="Code\Errors\InvalidRootNameException.cs" />
+    <Compile Include="Code\Errors\NestedCharacterClassException.cs" />
+    <Compile Include="Code\Errors\OrCannotHaveQuantifierException.cs" />
+    <Compile Include="Code\Errors\QuantifierCannotHaveQuantifierException.cs" />
+    <Compile Include="Code\Errors\UnsuportedGroupModifierException.cs" />
+    <Compile Include="Code\LookAroundType.cs" />
+    <Compile Include="Code\QuantifierState.cs" />
+    <Compile Include="Code\RegexConverter.cs" />
+    <Compile Include="Code\Errors\RootCannotHaveQuantifierException.cs" />
+    <Compile Include="Code\Errors\StartCannotHaveQuantifierException.cs" />
+    <Compile Include="Code\Errors\UnexpectedCharacterClassEndException.cs" />
+    <Compile Include="Code\Errors\UnexpectedNumericQualifierEndException.cs" />
+    <Compile Include="Code\Errors\UnexpectedQuestionMarkException.cs" />
+    <Compile Include="Code\XmlMode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="Resources\XmlRegex.xsd" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Xml2Regex.xslt" />
+    <Content Include="Tests\Xml2Regex.xslt" />
+    <Content Include="Tests\tests.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

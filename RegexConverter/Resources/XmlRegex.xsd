@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+  <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  id="XMLSchema"
+  xmlns:mstns="default"
+  elementFormDefault="qualified">
+
+  <xs:simpleType name="optionsAttr">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^(?:(?:None|Compiled|CultureInvariant|ECMAScript|ExplicitCapture|IgnoreCase|IgnorePatternWhitespace|Multiline|RightToLeft|Singleline)(?:\s*,\s*)?)+$"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="lookArroundAttr">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^(?:positive|negative),(?:forward|backward)$"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="quantifierAttr">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^(?:\+|\*|\?|\{\d+(?:,(?:\d+)?)?\})\??$"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="nameCharAttr">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^(?:\&lt;|')$"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="originalAttr">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^[iImMnNsSxX]*\-?[iImMnNsSxX]*$"></xs:pattern>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="indexAttr">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="1"></xs:minInclusive>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="emptyType"></xs:complexType>
+  <xs:complexType name="expressionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="quantifier" type="quantifierAttr"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="setType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="options" type="xs:string"></xs:attribute>
+        <xs:attribute name="original" type="originalAttr"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="commentType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="xmode" type="xs:boolean"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="namedType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="negated" type="xs:boolean"></xs:attribute>
+        <xs:attribute name="quantifier" type="quantifierAttr"></xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:group name="childrenGroup">
+    <xs:choice>
+      <xs:element name="start" type="emptyType" ></xs:element>
+      <xs:element name="end" type="emptyType"  ></xs:element>
+      <xs:element name="or" type="emptyType"  ></xs:element>
+      <xs:element name="nl" type="emptyType"  ></xs:element>
+      <xs:element name="cr" type="emptyType"  ></xs:element>
+      <xs:element name="expression" type="expressionType"  ></xs:element>
+      <xs:element name="class" type="expressionType"  ></xs:element>
+      <xs:element name="set" type="setType"  ></xs:element>
+      <xs:element name="comment" type="commentType"  ></xs:element>
+      <xs:element name="namedBackref" type="namedType"  ></xs:element>
+      <xs:element name="namedClass" type="namedType"  ></xs:element>
+      <xs:element name="group" type="groupType"></xs:element>
+    </xs:choice>
+  </xs:group>
+  
+  <xs:complexType name="groupType" mixed="true">
+    <xs:group ref="childrenGroup" minOccurs="0" maxOccurs="unbounded"></xs:group>
+    <xs:attribute name="name" type="xs:string"></xs:attribute>
+    <xs:attribute name="nameChar" type="nameCharAttr"></xs:attribute>
+    <xs:attribute name="index" type="indexAttr"></xs:attribute>
+    <xs:attribute name="options" type="optionsAttr"></xs:attribute>
+    <xs:attribute name="original" type="originalAttr"></xs:attribute>
+    <xs:attribute name="quantifier" type="quantifierAttr"></xs:attribute>
+    <xs:attribute name="nonGrouping" type="xs:boolean"></xs:attribute>
+    <xs:attribute name="lookAround" type="lookArroundAttr"></xs:attribute>
+    <xs:attribute name="atomic" type="xs:boolean"></xs:attribute>
+    <xs:attribute name="conditional" type="xs:boolean"></xs:attribute>
+    <xs:attribute name="condition" type="xs:boolean"></xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="regexType">
+    <xs:group ref="childrenGroup" minOccurs="0" maxOccurs="unbounded"></xs:group>
+    <xs:attribute name="options" type="optionsAttr"></xs:attribute>
+  </xs:complexType>
+
+  <xs:element name="regex" type="regexType">
+    <xs:unique name="uniqueIndex">
+      <xs:selector xpath="mstns:group|.//mstns:group"></xs:selector>
+      <xs:field xpath="@index"></xs:field>
+    </xs:unique>
+  </xs:element>
+
+
+</xs:schema>
